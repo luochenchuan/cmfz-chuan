@@ -1,0 +1,87 @@
+#index-login-body{
+    background: url("../image/banner.jpg");
+}
+.index-login-box{
+    color: #F45B4B;
+    margin-top: 10%;
+    text-align: center;
+    background: #E1E1E1;
+    border-radius: 12px;
+    padding: 20px;
+}
+.code{
+    width: 100px;
+    height: 40px;
+}
+.index-login-btn{
+    margin-left: auto;
+    color: #fff;
+    background: #F45B4B;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 7px;
+}
+.index-login-btn:hover{
+    background: #9d9d9d;
+}
+#index-login-hint-error{
+    display: /*block*/ none;
+}
+.activate{
+    padding: 4px 6px;
+    border-radius: 2px;
+    border: black solid 1px;
+}
+.success{
+    background: #5cb85c;
+    color: white;
+}
+.error{
+    background: #d9534f;
+    color: white;
+}
+
+.demo-class .layui-layer-content, .demo-class .layui-layer-btn{
+    background:#333;
+    color: white;
+}
+.head-h2{
+    margin-top: -40px;
+}
+.hint-head-h4{
+    margin-top: -20px;
+}
+
+/* 主题 */
+.main-body-1{
+    background: url(../image/theme/bg1.jpg) no-repeat;
+    background-size: cover;
+}
+.main-body-2{
+    background: url(../image/theme/bg2.jpg) no-repeat;
+    background-size: cover;
+}
+.main-body-3{
+    background: #009688;
+}
+
+/* 主题提示 */
+.theme-box-1, .theme-box-2, .theme-box-3, .theme-box-4{
+    margin-left: 10px;
+    padding: 0px 15px;
+    background: #e7e7e7;
+}
+.theme-box-2{
+    background: url(../image/theme/bg1.jpg) no-repeat;
+    background-size: cover;
+}
+
+.theme-box-3{
+    background: url(../image/theme/bg2.jpg) no-repeat;
+    background-size: cover;
+}
+.theme-box-4{
+    background: #009688;
+}
+

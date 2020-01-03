@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zhuchuansheng.cmfz.dao.BannerDao">
+
+    <!--
+            分页查询轮播图
+    -->
+    <select id="selectByPaging" resultType="com.zhuchuansheng.cmfz.entity.Banner">
+        SELECT
+            ID,
+            TITLE,
+            IMG,
+            CREATE_DATE createDate,
+            STATUS
+        FROM
+            BANNER
+        ORDER BY
+            CREATE_DATE
+        DESC
+            LIMIT #{start}, #{rows}
+    </select>
+
+
+    <!--
+            根据ID查询总记录数
+    -->
+    <select id="selectCountById" resultType="int">
+        SELECT
+            COUNT(ID)
+        FROM
+            BANNER
+    </select>
+
+
+    <!--
+            添加轮播图数据
+    -->
+    <insert id="insertBanner">
+        INSERT INTO
+            BANNER(ID, TITLE, IMG, CREATE_DATE, STATUS)
+        VALUES(
+            #{id},
+            #{title},
+            #{img},
+            #{createDate},
+            #{status}
+        )
+    </insert>
+
+
+    <!--
+            修改轮播图的信息
+    -->
+    <update id="updateBannerById">
+        UPDATE
+            BANNER
+        <set>
+          <if test="title != null">
+              TITLE = #{title},
+          </if>
+          <if test="img != null">
+              IMG = #{img},
+          </if>
+          <if test="createDate != null">
+              CREATE_DATE = #{createDate},
+          </if>
+          <if test="status != null">
+              STATUS = #{status}
+          </if>
+        </set>
+        WHERE
+            ID = #{id}
+    </update>
+
+
+    <!--
+            批量删除
+    -->
+    <delete id="deleteAll">
+        DELETE FROM
+            BANNER
+        WHERE
+         ID 
+        IN
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!--
+            批量添加
+    -->
+    <insert id="insertByList">
+        INSERT INTO
+            BANNER(ID, TITLE, IMG, CREATE_DATE, STATUS)
+        VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.id}, #{item.title}, #{item.img}, #{item.createDate}, #{item.status})
+        </foreach>
+    </insert>
+
+
+</mapper>

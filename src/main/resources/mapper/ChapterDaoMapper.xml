@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zhuchuansheng.cmfz.dao.ChapterDao">
+
+
+    <!--
+            普通查询字段
+    -->
+    <sql id="selectField">
+        ID id,
+        TITLE title,
+        ALBUM_ID albumId,
+        SIZE size,
+        DURATION duration,
+        SRC src,
+        STATUS status
+    </sql>
+
+
+    <!--
+            分页查询
+    -->
+    <select id="selectAllByPaging" resultType="com.zhuchuansheng.cmfz.entity.Chapter">
+        SELECT
+          <include refid="selectField"/>
+        FROM
+            CHAPTER
+        WHERE
+            ALBUM_ID = #{albumId}
+        LIMIT
+	      #{start}, #{rows}
+    </select>
+
+
+    <!--
+            根据ID查询总记录数
+    -->
+    <select id="selectCountById" resultType="int">
+        SELECT
+            COUNT(ID)
+        FROM
+            CHAPTER
+        WHERE
+            ID = #{albumId}
+    </select>
+
+
+    <!--
+            添加章节数据
+    -->
+    <insert id="insertChapter">
+        INSERT INTO
+            CHAPTER(
+                ID,
+                TITLE,
+                ALBUM_ID,
+                SIZE,
+                DURATION,
+                SRC,
+                STATUS
+            )
+        VALUES(
+            #{id},
+            #{title},
+            #{albumId},
+            #{size},
+            #{duration},
+            #{src},
+            #{status}
+        )
+    </insert>
+
+
+    <!--
+            修改章节数据
+    -->
+    <update id="updateChapter">
+        UPDATE
+            CHAPTER
+        <set>
+            <if test="title != null">
+                TITLE = #{title},
+            </if>
+            <if test="albumId != null">
+                ALBUM_ID = #{albumId},
+            </if>
+            <if test="size != null">
+                SIZE = #{size},
+            </if>
+            <if test="duration != null">
+                DURATION = #{duration},
+            </if>
+            <if test="src != null">
+                SRC = #{src},
+            </if>
+            <if test="status != null">
+                STATUS = ${status}
+            </if>
+        </set>
+        WHERE
+            ID = #{id}
+    </update>
+
+
+
+    <!--
+            删除章节ID
+    -->
+    <delete id="deleteChapter">
+        DELETE FROM
+            CHAPTER
+        WHERE
+            ID = #{id}
+    </delete>
+
+
+</mapper>

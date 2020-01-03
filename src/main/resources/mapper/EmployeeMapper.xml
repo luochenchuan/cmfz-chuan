@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhuchuansheng.cmfz.dao.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.zhuchuansheng.cmfz.entity.Employee" >
+    <id column="EMPLOYEE_ID" property="employeeId" jdbcType="VARCHAR" />
+    <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+    <result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="JOB_ID" property="jobId" jdbcType="VARCHAR" />
+    <result column="SALARY" property="salary" jdbcType="INTEGER" />
+    <result column="COMMISSON_PCT" property="commissonPct" jdbcType="INTEGER" />
+    <result column="MANAGER_ID" property="managerId" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT_ID" property="departmentId" jdbcType="VARCHAR" />
+    <result column="HIRE_DATE" property="hireDate" jdbcType="DATE" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EMPLOYEE_ID employeeId, FIRST_NAME firstName, LAST_NAME, EMAIL, PHONE_NUMBER phoneNumber, JOB_ID jobId, SALARY, COMMISSON_PCT,
+    MANAGER_ID, DEPARTMENT_ID, HIRE_DATE hireDate, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from employees
+    where EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from employees
+    where EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zhuchuansheng.cmfz.entity.Employee" >
+    insert into employees (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, 
+      EMAIL, PHONE_NUMBER, JOB_ID, 
+      SALARY, COMMISSON_PCT, MANAGER_ID, 
+      DEPARTMENT_ID, HIRE_DATE, STATUS
+      )
+    values (#{employeeId,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, 
+      #{salary,jdbcType=INTEGER}, #{commissonPct,jdbcType=INTEGER}, #{managerId,jdbcType=VARCHAR}, 
+      #{departmentId,jdbcType=VARCHAR}, #{hireDate,jdbcType=DATE}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhuchuansheng.cmfz.entity.Employee" >
+    insert into employees
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        EMPLOYEE_ID,
+      </if>
+      <if test="firstName != null" >
+        FIRST_NAME,
+      </if>
+      <if test="lastName != null" >
+        LAST_NAME,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="phoneNumber != null" >
+        PHONE_NUMBER,
+      </if>
+      <if test="jobId != null" >
+        JOB_ID,
+      </if>
+      <if test="salary != null" >
+        SALARY,
+      </if>
+      <if test="commissonPct != null" >
+        COMMISSON_PCT,
+      </if>
+      <if test="managerId != null" >
+        MANAGER_ID,
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID,
+      </if>
+      <if test="hireDate != null" >
+        HIRE_DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null" >
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null" >
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=INTEGER},
+      </if>
+      <if test="commissonPct != null" >
+        #{commissonPct,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="hireDate != null" >
+        #{hireDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhuchuansheng.cmfz.entity.Employee" >
+    update employees
+    <set >
+      <if test="firstName != null" >
+        FIRST_NAME = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null" >
+        LAST_NAME = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        JOB_ID = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        SALARY = #{salary,jdbcType=INTEGER},
+      </if>
+      <if test="commissonPct != null" >
+        COMMISSON_PCT = #{commissonPct,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        MANAGER_ID = #{managerId,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="hireDate != null" >
+        HIRE_DATE = #{hireDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhuchuansheng.cmfz.entity.Employee" >
+    update employees
+    set FIRST_NAME = #{firstName,jdbcType=VARCHAR},
+      LAST_NAME = #{lastName,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      JOB_ID = #{jobId,jdbcType=VARCHAR},
+      SALARY = #{salary,jdbcType=INTEGER},
+      COMMISSON_PCT = #{commissonPct,jdbcType=INTEGER},
+      MANAGER_ID = #{managerId,jdbcType=VARCHAR},
+      DEPARTMENT_ID = #{departmentId,jdbcType=VARCHAR},
+      HIRE_DATE = #{hireDate,jdbcType=DATE},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where EMPLOYEE_ID = #{employeeId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectAll" resultType="com.zhuchuansheng.cmfz.entity.Employee">
+    select
+    <include refid="Base_Column_List" />
+    from employees
+  </select>
+
+</mapper>

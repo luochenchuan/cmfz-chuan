@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登陆</title>
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- bootstrap的样式 -->
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <!-- jqGrid的样式 -->
+    <link rel="stylesheet" type="text/css" href="jqGrid/css/trirand/ui.jqgrid-bootstrap.css">
+    <!-- jquery.js -->
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <!-- bootstrap的js -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- jqGrid的js -->
+    <script src="jqGrid/js/trirand/jquery.jqGrid.min.js"></script>
+    <!--  表单验证的js -->
+   <!-- <script src="js/jquery.validate.js"></script>-->
+    <script src="js/validate.js"></script>
+    <script>
+
+        $(function () {
+
+
+
+
+
+
+
+            /* 点击切换验证码 */
+            $("#codeImg").click(function () {
+                $(this).attr("src", "code/getCodeImage?time="+new Date().getTime());
+            });
+
+
+            /* 管理员登陆 */
+            $("#index-login").click(function () {
+
+                //表单验证
+                var result = $("#index-login-form").validate({
+
+                    /* 验证规则 */
+                    rules:{
+                        userName: {required: true},
+                        password: {required: true},
+                        securityCode: {required: true}
+                    },
+                    /* 提示信息 */
+                    messages: {
+                        "userName": {
+                            required: "请输入用户名"
+                        },
+                        "password": {
+                            required: "请输入密码"
+                        },
+                        "securityCode": {
+                            required: "请输入验证码"
+                        }
+                    }
+                });
+
+                if(!result)
+                    return;
+
+                //获取表单数据
+                var data = $("#index-login-form").serialize();
+                //发送请求
+                $.ajax({
+                    url: "admin/login",
+                    type: "post",
+                    data: data,
+                    datatype: "json",
+                    success: function (result) {
+                        //登陆成功
+                        if(result["status"] == 200){
+                            location.href = "html/main.jsp";
+                        }else{
+                            $("#index-login-hint-error").css("display", "block");
+                            $("#index-login-hint-error-content").text(result["msg"]);
+                        }
+                    }
+                });
+            });
+
+            /* 提示框显示 */
+            $("#alertClose").click(function () {
+                $("#index-login-hint-error").css("display", "none");
+            });
+            /* 提示框显示 */
+
+        });
+        
+    </script>
+</head>
+<body id="index-login-body">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 col-sm-offset-4 index-login-box">
+
+                <!-- 标题 -->
+                <h1>LOGIN FORM</h1>
+                <!-- 标题 -->
+
+                <!-- 提示框 -->
+                <div class="alert alert-danger alert-dismissible fade in" id="index-login-hint-error" role="alert">
+                    <button type="button" class="close" id="alertClose"><span aria-hidden="true">&times;</span></button>
+                    <strong>ERROR!</strong>
+                    <span id="index-login-hint-error-content"></span>
+                </div>
+                <!-- 提示框 -->
+
+                <!-- 表单 -->
+                <form class="form-horizontal" id="index-login-form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="userName">用户名:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="userName" class="form-control" name="userName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="password">密 &nbsp; 码:</label>
+                        <div class="col-sm-10">
+                            <input type="password" id="password" class="form-control" name="password"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="securityCode">验证码:</label>
+                        <div class="col-sm-5">
+                            <input type="text" id="securityCode" class="form-control" name="securityCode"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <img class="code" id="codeImg" src="code/getCodeImage" title="点击切换">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> 记住我
+                                    <a href="javascript:void(0);">忘记密码?</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="index-login" class="index-login-btn">登 &nbsp; 陆</button>
+                    </div>
+                </form>
+                <!-- 表单 -->
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

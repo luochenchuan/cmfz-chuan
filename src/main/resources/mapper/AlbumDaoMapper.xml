@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zhuchuansheng.cmfz.dao.AlbumDao">
+
+
+    <!--
+            普通查询字段
+    -->
+    <sql id="selectField">
+        ID id,
+        TITLE title,
+        IMG img,
+        SCORE score,
+        AUTHOR author,
+        BROADCASTER broadcaster,
+        COUNT count,
+        BRIEF brief,
+        CREATE_DATE createDate,
+        STATUS status
+    </sql>
+
+    <!--
+            添加字段
+    -->
+    <sql id="insertField">
+        ID,
+        TITLE,
+        SCORE,
+        AUTHOR,
+        BROADCASTER,
+        COUNT,
+        BRIEF,
+        CREATE_DATE,
+        STATUS
+    </sql>
+
+    <!--
+            分页查询
+    -->
+    <select id="selectAllByPaging" resultType="com.zhuchuansheng.cmfz.entity.Album">
+        SELECT
+          <include refid="selectField"/>
+        FROM
+              ALBUM
+        LIMIT
+            #{start}, #{rows}
+    </select>
+
+
+    <!--
+            根据ID查询总记录数
+    -->
+    <select id="selectCountById" resultType="int">
+        SELECT
+            COUNT(ID)
+        FROM
+            ALBUM
+    </select>
+
+
+
+    <!--
+            添加专辑
+    -->
+    <insert id="insertAlbum">
+        INSERT INTO
+            ALBUM(
+              <include refid="insertField"/>
+            )
+        VALUES(
+            #{id},
+            #{title},
+            #{score},
+            #{author},
+            #{broadcaster},
+            #{count},
+            #{brief},
+            #{createDate},
+            #{status}
+        )
+    </insert>
+
+
+    <!--
+            修改专辑数据
+    -->
+    <update id="updateAlbum">
+        UPDATE
+            ALBUM
+        <set>
+            <if test="title != null">
+                TITLE = #{title},
+            </if>
+            <if test="img != null">
+                IMG = #{img},
+            </if>
+            <if test="score">
+                SCORE = #{score},
+            </if>
+            <if test="author != null">
+                AUTHOR = #{author},
+            </if>
+            <if test="broadcaster != null">
+                BROADCASTER = #{broadcaster},
+            </if>
+            <if test="count != null">
+                COUNT = #{count},
+            </if>
+            <if test="brief != null">
+                BRIEF = #{brief},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate},
+            </if>
+            <if test="status != null">
+                STATUS = #{status}
+            </if>
+        </set>
+        WHERE
+            ID = #{id}
+    </update>
+
+
+
+    <!--
+            查询全部的数据
+    -->
+    <select id="selectAllAlbum" resultType="com.zhuchuansheng.cmfz.entity.Album">
+        SELECT
+            <include refid="selectField"/>
+        FROM
+            ALBUM
+    </select>
+
+
+    <!--
+            根据ID查询
+    -->
+    <select id="selectAlbumById" resultType="com.zhuchuansheng.cmfz.entity.Album">
+        SELECT
+            <include refid="selectField"/>
+        FROM
+            ALBUM
+        WHERE
+            ID = #{id}
+    </select>
+
+
+    <!--
+            根据ID删除专辑
+    -->
+    <delete id="deleteAlbum">
+        DELETE FROM
+            ALBUM
+        WHERE
+            ID = #{id}
+    </delete>
+
+
+</mapper>
